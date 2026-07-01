@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/vyve-psychotherapy-design-system-2ebb498a-eb9d-4808-89fa-d0cef0297761/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/vyve-psychotherapy-design-system-2ebb498a-eb9d-4808-89fa-d0cef0297761/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/vyve-psychotherapy-design-system-2ebb498a-eb9d-4808-89fa-d0cef0297761/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/vyve-psychotherapy-design-system-2ebb498a-eb9d-4808-89fa-d0cef0297761/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/vyve-psychotherapy-design-system-2ebb498a-eb9d-4808-89fa-d0cef0297761/tokens/effects.css">
+  <link rel="stylesheet" href="_ds/vyve-psychotherapy-design-system-2ebb498a-eb9d-4808-89fa-d0cef0297761/styles.css">
+  <script src="_ds/vyve-psychotherapy-design-system-2ebb498a-eb9d-4808-89fa-d0cef0297761/_ds_bundle.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    ::selection { background: var(--vyve-peach); color: var(--vyve-navy); }
+    @media (max-width: 860px) {
+      .vyve-nav { padding-left: 20px !important; padding-right: 20px !important; }
+      .vyve-hero { grid-template-columns: 1fr !important; gap: 34px !important; padding: 32px 20px 52px !important; }
+      .vyve-hero-h1 { font-size: clamp(34px, 9vw, 46px) !important; }
+      .vyve-section-pad { padding-left: 20px !important; padding-right: 20px !important; }
+      .vyve-section-y { padding-top: 56px !important; padding-bottom: 56px !important; }
+    }
+    @media (max-width: 520px) {
+      .vyve-book-panel { padding: 22px !important; }
+      .vyve-hero-p { font-size: 17px !important; }
+    }
+    .vyve-team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 20px; }
+    .vyve-office-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    @media (max-width: 720px) { .vyve-office-grid { grid-template-columns: 1fr !important; } }
+    .vyve-team-card { transition: transform var(--dur-base) var(--ease-soft), box-shadow var(--dur-base) var(--ease-soft), border-color var(--dur-base) ease; }
+    .vyve-team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(182,81,0,0.35); }
+    .vyve-team-card:hover .vyve-mono-ring { transform: rotate(-22deg) scale(1.05); }
+    @keyframes vyveHeroIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    .hero-anim { animation: vyveHeroIn 0.9s var(--ease-soft) 0.1s backwards; }
+    @keyframes vyveReveal { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+    .reveal.is-visible { animation: vyveReveal 0.7s var(--ease-soft) backwards; }
+    @media (prefers-reduced-motion: reduce) { .hero-anim, .reveal.is-visible { animation: none !important; } }
+  </style>
+</helmet>
+
+<div style="font-family: var(--font-body); background: var(--vyve-navy-deep); background-image: var(--bg-dark); min-height: 100vh; color: var(--text-on-dark);">
+
+  <!-- ===== HEADER ===== -->
+  <header class="vyve-nav" style="position: sticky; top: 0; z-index: 50; height: var(--nav-height); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--section-x); background: rgba(8,19,46,0.55); backdrop-filter: var(--blur-overlay); -webkit-backdrop-filter: var(--blur-overlay); border-bottom: 1px solid var(--border-on-dark);">
+    <a href="#" style="display: flex; align-items: center;">
+      <img src="assets/logos/vyve-white-orange-full.svg" alt="Vyve Psychotherapy" style="height: 56px; width: auto; display: block;">
+    </a>
+    <nav style="display: flex; align-items: center; gap: 28px;">
+      <x-import component-from-global-scope="VyvePsychotherapyDesignSystem_2ebb49.Button" variant="outlineLight" size="sm" href="#book" hint-size="auto,36px">Book appointment</x-import>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section style="position: relative; overflow: hidden; background-color: var(--vyve-navy-deep); background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.42%22/%3E%3C/svg%3E'), radial-gradient(120% 92% at 13% -8%, rgba(46,123,175,0.22), transparent 52%), radial-gradient(72% 80% at 97% -2%, rgba(182,81,0,0.12), transparent 60%), radial-gradient(150% 135% at 82% 118%, #0d2143 0%, #0a1733 48%, #06112a 100%); background-repeat: repeat, no-repeat, no-repeat, no-repeat; background-size: 150px 150px, auto, auto, auto; background-blend-mode: overlay, normal, normal, normal;">
+    <!-- ripple ring texture (brand monogram motif) -->
+    <svg viewBox="0 0 900 900" preserveAspectRatio="xMaxYMin slice" aria-hidden="true" style="position: absolute; top: -260px; right: -200px; width: 900px; height: 900px; pointer-events: none; opacity: 0.55;">
+      <g fill="none" stroke="rgba(250,172,111,0.16)">
+        <circle cx="450" cy="450" r="120" stroke-width="1.5"></circle>
+        <circle cx="450" cy="450" r="190" stroke-width="1.5"></circle>
+        <circle cx="450" cy="450" r="262" stroke-width="1.25" stroke="rgba(255,255,255,0.10)"></circle>
+        <circle cx="450" cy="450" r="338" stroke-width="1.25" stroke="rgba(255,255,255,0.08)"></circle>
+        <circle cx="450" cy="450" r="418" stroke-width="1" stroke="rgba(255,255,255,0.06)"></circle>
+      </g>
+    </svg>
+    <svg viewBox="0 0 760 760" preserveAspectRatio="xMinYMax slice" aria-hidden="true" style="position: absolute; bottom: -340px; left: -240px; width: 760px; height: 760px; pointer-events: none; opacity: 0.5;">
+      <g fill="none" stroke="rgba(46,123,175,0.18)">
+        <circle cx="380" cy="380" r="110" stroke-width="1.5"></circle>
+        <circle cx="380" cy="380" r="186" stroke-width="1.25" stroke="rgba(255,255,255,0.08)"></circle>
+        <circle cx="380" cy="380" r="270" stroke-width="1.25" stroke="rgba(255,255,255,0.06)"></circle>
+        <circle cx="380" cy="380" r="360" stroke-width="1" stroke="rgba(255,255,255,0.05)"></circle>
+      </g>
+    </svg>
+    <div class="vyve-hero" style="max-width: var(--site-width); margin: 0 auto; width: 100%; padding: 64px var(--section-x) 88px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center;">
+
+    <!-- LEFT: message -->
+    <div>
+      <h1 style="margin: 0; font-family: var(--font-display); font-weight: var(--weight-black); color: var(--text-on-dark); font-size: clamp(40px, 5.2vw, 60px); line-height: 0.98; letter-spacing: var(--tracking-h1); text-wrap: balance;" class="vyve-hero-h1 hero-anim">
+        We don't believe in therapy <span style="font-family: var(--font-accent); font-style: italic; font-weight: 700; font-size: 1.32em; line-height: 0.8; color: var(--vyve-peach); padding: 0 0.04em;">forever</span>.
+      </h1>
+
+      <p style="color: var(--vyve-cream); font-size: 19px; line-height: 1.6; font-weight: 500; max-width: 460px; margin: 24px 0 0;" class="vyve-hero-p hero-anim">
+        Real, licensed therapists and measurable progress.</p>
+
+      <sc-if value="{{ showApproaches }}" hint-placeholder-val="{{ true }}">
+        <div class="hero-anim" style="margin: 32px 0 0;">
+          <div style="display: flex; flex-wrap: wrap; gap: 9px; max-width: 520px;">
+            <sc-for list="{{ approaches }}" as="a" hint-placeholder-count="8">
+              <span style="display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; color: var(--vyve-cream); background: rgba(255,255,255,0.06); border: 1px solid var(--border-on-dark); border-radius: var(--radius-chip); padding: 7px 14px; white-space: nowrap; transition: border-color var(--dur-base) ease, background var(--dur-base) ease;" style-hover="border-color: rgba(250,172,111,0.55); background: rgba(255,255,255,0.10);">{{ a }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+
+    <!-- RIGHT: booking panel -->
+    <div id="book" class="vyve-book-panel hero-anim" style="background: rgba(255,255,255,0.06); backdrop-filter: var(--blur-overlay); -webkit-backdrop-filter: var(--blur-overlay); border: 1px solid var(--border-on-dark); border-radius: var(--radius-xl); padding: 30px; box-shadow: var(--shadow-on-dark);">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-weight: var(--weight-black); color: var(--vyve-white); font-size: 24px; letter-spacing: -0.4px;">Book your session</h2>
+        <span style="font-size: 13px; font-weight: 700; color: var(--vyve-peach); text-transform: uppercase; letter-spacing: 1.4px; white-space: nowrap;">2 offices</span>
+      </div>
+      <p style="margin: 8px 0 22px; font-size: 14.5px; line-height: 1.5; color: var(--vyve-grey);">Choose the office closest to you. New patients welcome.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="2">
+          <div style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-on-dark); border-radius: var(--radius-lg); padding: 20px; transition: border-color var(--dur-base) ease, transform var(--dur-fast) ease;" style-hover="border-color: rgba(250,172,111,0.55); transform: translateY(-2px);">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+              <span style="font-family: var(--font-display); font-weight: var(--weight-black); color: var(--vyve-white); font-size: 19px; letter-spacing: -0.3px;">{{ loc.city }}</span>
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--vyve-peach); border: 1px solid var(--border-on-dark); border-radius: var(--radius-pill); padding: 4px 11px; white-space: nowrap;">In person</span>
+            </div>
+            <div style="margin: 10px 0 0; font-size: 14px; line-height: 1.5; color: var(--vyve-grey);">{{ loc.addr }}</div>
+            <a href="{{ loc.telHref }}" style="display: inline-block; margin: 6px 0 16px; font-size: 14px; font-weight: 700; color: var(--vyve-peach); text-decoration: none;">{{ loc.phone }}</a>
+            <x-import component-from-global-scope="VyvePsychotherapyDesignSystem_2ebb49.Button" variant="accent" size="md" href="{{ loc.book }}" hint-size="100%,44px" style="{{ fullWidthBtn }}">{{ loc.cta }}</x-import>
+          </div>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ showVirtualOption }}" hint-placeholder-val="{{ true }}">
+        <a href="#" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 16px 0 0; padding: 14px 18px; border-radius: var(--radius-lg); background: transparent; border: 1px dashed var(--border-on-dark); text-decoration: none; transition: background var(--dur-base) ease;" style-hover="background: rgba(255,255,255,0.05);">
+          <span style="font-size: 14px; font-weight: 600; color: var(--vyve-cream);">Prefer to meet online? Virtual counselling across NB.</span>
+          <span style="color: var(--vyve-peach); font-weight: 800; font-size: 16px;">→</span>
+        </a>
+      </sc-if>
+    </div>
+    </div>
+  </section>
+
+  <!-- ===== TEAM DIRECTORY (photo-free) ===== -->
+  <section style="background: var(--vyve-cream); background-image: var(--bg-cream); color: var(--text-body);">
+    <div class="vyve-section-pad vyve-section-y" style="max-width: var(--site-width); margin: 0 auto; padding: var(--section-y) var(--section-x);">
+
+      <div class="reveal" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; flex-wrap: wrap; margin: 0 0 44px;">
+        <div style="max-width: 620px;">
+          <span style="display: inline-block; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; font-weight: 800; color: var(--vyve-orange);">Our team · Notre équipe</span>
+          <h2 style="margin: 16px 0 0; font-family: var(--font-display); font-weight: var(--weight-black); color: var(--text-heading); font-size: clamp(30px, 4vw, 44px); line-height: 0.98; letter-spacing: var(--tracking-h2); text-wrap: balance;">
+            Find the therapist that's <span style="font-family: var(--font-accent); font-style: italic; font-weight: 700; font-size: 1.32em; line-height: 0.8; color: var(--vyve-orange); padding: 0 0.04em;">right</span> for you.
+          </h2>
+          <p style="margin: 18px 0 0; font-size: 17px; line-height: 1.6; color: var(--text-muted); max-width: 560px;">
+            A full team of licensed counselling therapists, social workers and psychologists across our two New Brunswick offices. Browse their credentials and approaches, then book with the person who feels like the right fit.
+          </p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 12px 18px; border: 1px solid var(--border-soft); border-radius: var(--radius-pill); background: var(--vyve-white); box-shadow: var(--shadow-sm);">
+          <span style="font-family: var(--font-display); font-weight: var(--weight-black); font-size: 26px; color: var(--vyve-orange); letter-spacing: -0.5px;">{{ teamCount }}</span>
+          <span style="font-size: 13.5px; font-weight: 600; line-height: 1.25; color: var(--text-muted);">therapists<br>ready to help</span>
+        </div>
+      </div>
+
+      <div class="vyve-team-grid">
+        <sc-for list="{{ team }}" as="t" hint-placeholder-count="8">
+          <a href="#book" class="vyve-team-card reveal" style="display: flex; flex-direction: column; text-decoration: none; background: var(--vyve-white); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 24px 22px 22px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <!-- monogram -->
+              <div style="position: relative; width: 66px; height: 66px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(120% 120% at 30% 25%, var(--vyve-peach-tint), var(--vyve-sand));">
+                <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" style="position: absolute; inset: 0; transition: transform var(--dur-base) var(--ease-soft); transform: rotate(-22deg);" aria-hidden="true">
+                  <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                  <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+                </svg>
+                <span style="position: relative; font-family: var(--font-accent); font-style: italic; font-weight: 700; font-size: 27px; line-height: 1; color: var(--vyve-orange);">{{ t.initials }}</span>
+              </div>
+              <span style="font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--vyve-slate); border: 1px solid var(--border-soft); border-radius: var(--radius-pill); padding: 5px 10px; white-space: nowrap;">{{ t.office }}</span>
+            </div>
+
+            <div style="margin: 18px 0 0;">
+              <div style="font-family: var(--font-display); font-weight: var(--weight-black); font-size: 20px; letter-spacing: -0.4px; color: var(--vyve-navy); line-height: 1.1;">{{ t.name }}</div>
+              <sc-if value="{{ t.role }}" hint-placeholder-val="Licensed Counselling Therapist">
+                <div style="margin: 5px 0 0; font-size: 13.5px; font-weight: 600; line-height: 1.4; color: var(--vyve-orange-600);">{{ t.role }}</div>
+              </sc-if>
+            </div>
+
+            <div style="margin: 16px 0 0; padding: 14px 0 0; border-top: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+              <span style="font-size: 12.5px; font-weight: 600; color: var(--text-muted);">{{ t.modality }}</span>
+              <span style="font-size: 13px; font-weight: 800; color: var(--vyve-orange); display: inline-flex; align-items: center; gap: 6px;">Book →</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== OFFICES BAND ===== -->
+  <section style="background: var(--vyve-sand); color: var(--text-body);">
+    <div class="vyve-section-pad" style="max-width: var(--site-width); margin: 0 auto; padding: 64px var(--section-x);">
+      <div class="reveal" style="margin: 0 0 26px;">
+        <h3 style="margin: 0; font-family: var(--font-display); font-weight: var(--weight-black); color: var(--text-heading); font-size: clamp(24px, 3vw, 32px); letter-spacing: -0.6px;">
+          Two offices, both <span style="font-family: var(--font-accent); font-style: italic; font-weight: 700; font-size: 1.3em; color: var(--vyve-orange);">close</span> to home.</h3>
+      </div>
+      <div class="vyve-office-grid reveal">
+        <sc-for list="{{ locations }}" as="office" hint-placeholder-count="2">
+          <div style="background: var(--vyve-white); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 28px 28px 26px; display: flex; flex-direction: column;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <h4 style="margin: 0; font-family: var(--font-display); font-weight: var(--weight-black); color: var(--text-heading); font-size: 26px; letter-spacing: -0.5px;">{{ office.city }}</h4>
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--vyve-orange); border: 1px solid var(--vyve-orange); border-radius: var(--radius-pill); padding: 4px 11px; white-space: nowrap;">In-person office</span>
+            </div>
+            <div style="margin: 12px 0 0; font-size: 15px; line-height: 1.5; color: var(--text-muted);">{{ office.addr }}</div>
+            <a href="{{ office.telHref }}" style="display: inline-block; margin: 6px 0 22px; font-size: 15px; font-weight: 700; color: var(--vyve-orange); text-decoration: none;">{{ office.phone }}</a>
+            <div style="margin-top: auto;">
+              <x-import component-from-global-scope="VyvePsychotherapyDesignSystem_2ebb49.Button" variant="primary" size="md" href="{{ office.book }}" hint-size="auto,44px">{{ office.cta }}</x-import>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CLOSING CONTACT BAR ===== -->
+  <section style="background: var(--vyve-navy-deep); background-image: var(--bg-dark); border-top: 1px solid var(--border-on-dark);">
+    <div class="vyve-section-pad reveal" style="max-width: var(--site-width); margin: 0 auto; padding: 26px var(--section-x); display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <span style="font-family: var(--font-display); font-weight: var(--weight-black); color: var(--vyve-white); font-size: 18px; letter-spacing: -0.3px;">Whatever you're facing, we're here to <span style="font-family: var(--font-accent); font-style: italic; font-weight: 700; font-size: 1.3em; color: var(--vyve-peach);">help</span>.</span>
+      <div style="display: flex; align-items: center; gap: 28px; flex-wrap: wrap;">
+        <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="2">
+          <a href="{{ loc.telHref }}" style="display: inline-flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; color: var(--vyve-grey); text-decoration: none;" style-hover="color: var(--vyve-peach);"><span style="font-weight: 800; color: var(--vyve-cream);">{{ loc.city }}</span> {{ loc.phone }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<template id="__bundler_thumbnail" data-bg-color="#08132E">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#08132E"/>
+    <circle cx="600" cy="400" r="150" fill="none" stroke="#B65100" stroke-width="26"/>
+    <ellipse cx="600" cy="400" rx="78" ry="150" fill="none" stroke="#FAAC6F" stroke-width="20" transform="rotate(-22 600 400)"/>
+  </svg>
+</template>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;showApproaches&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;showVirtualOption&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    this._reveal = () => {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      document.querySelectorAll(".reveal:not(.is-visible)").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.9 && r.bottom > 0) el.classList.add("is-visible");
+      });
+    };
+    this._reveal();
+    window.addEventListener("scroll", this._reveal, { passive: true });
+    window.addEventListener("resize", this._reveal);
+    this._t1 = setTimeout(this._reveal, 150);
+    this._t2 = setTimeout(this._reveal, 600);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this._reveal);
+    window.removeEventListener("resize", this._reveal);
+    clearTimeout(this._t1); clearTimeout(this._t2);
+  }
+  renderVals() {
+    const team = [
+      { name: "Petra Cross", initials: "PC", role: "Canadian Certified Counsellor", office: "Both offices", modality: "In person · Virtual" },
+      { name: "Carolina Mancipe", initials: "CM", role: "Licensed Counselling Therapist", office: "Richibucto", modality: "In person · Virtual" },
+      { name: "Tyler Curry", initials: "TC", role: "Counselling Therapist — Candidate", office: "Both offices", modality: "In person · Virtual" },
+      { name: "Lisa Johnson Thebeau", initials: "LJ", role: "Licensed Counselling Therapist", office: "Both offices", modality: "In person" },
+      { name: "Arianna Gaudreault", initials: "AG", role: "Counselling Therapist — Candidate", office: "Both offices", modality: "In person · Virtual" },
+      { name: "Charlene Savoie", initials: "CS", role: "Trauma-Informed Naturotherapist", office: "Both offices", modality: "In person · Virtual" },
+      { name: "Laura MacIsaac", initials: "LM", role: "Counselling Therapist", office: "Moncton", modality: "In person · Virtual" },
+      { name: "Stephanie Scripture", initials: "SS", role: "Registered Social Worker", office: "Moncton", modality: "In person · Virtual" },
+      { name: "Stephanie Perry", initials: "SP", role: "Counselling Therapist — Candidate", office: "Moncton", modality: "In person · Virtual" },
+      { name: "Terrell Sine", initials: "TS", role: "Counselling Therapist — Candidate", office: "Moncton", modality: "In person · Virtual" },
+      { name: "Mekayla Leger", initials: "ML", role: "Registered Social Worker", office: "Moncton", modality: "In person · Virtual" },
+      { name: "Joanne Gobeil", initials: "JG", role: "Psychologist", office: "Moncton", modality: "Virtual" },
+      { name: "Chelsea Steeves-Babineau", initials: "CB", role: "Licensed Counselling Therapist", office: "Richibucto", modality: "In person · Virtual" },
+      { name: "Julia Urbshot", initials: "JU", role: "Counselling Therapist", office: "Richibucto", modality: "In person" },
+      { name: "Janna Vassil", initials: "JV", role: "Counsellor", office: "Both offices", modality: "In person" },
+      { name: "Janine Daigle", initials: "JD", role: "Counsellor", office: "Richibucto", modality: "In person" },
+    ];
+    return {
+      showApproaches: this.props.showApproaches ?? true,
+      showVirtualOption: this.props.showVirtualOption ?? true,
+      approaches: ["Person-centered", "ACT", "Solution-focused", "EMDR", "Somatic", "IFS", "CBT", "Massage Therapy", "Individual counselling", "Couples counselling"],
+      fullWidthBtn: { width: "100%" },
+      team,
+      teamCount: team.length,
+      locations: [
+        { city: "Moncton", addr: "187 Botsford St, Moncton, NB E1C 4X4", phone: "506-524-8119", telHref: "tel:+15065248119", cta: "Book in Moncton", book: "https://clearviewpsychotherapy.janeapp.com/locations/vyve-psychotherapy-on-botsford-moncton-location/book" },
+        { city: "Richibucto", addr: "2-9333 Rue Main, Richibucto, NB E4W 4B6", phone: "506-523-3359", telHref: "tel:+15065233359", cta: "Book in Richibucto", book: "https://clearviewpsychotherapy.janeapp.com/locations/vyve-psychotherapy-in-richibucto/book" },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

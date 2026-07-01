@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Vyve Psychotherapy — real, licensed therapists and measurable progress. In-person and virtual counselling at our Moncton and Richibucto, NB offices.">
+  <title>Vyve Psychotherapy — Therapy that doesn't last forever</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2308132E'/%3E%3Ccircle cx='50' cy='50' r='26' fill='none' stroke='%23B65100' stroke-width='7'/%3E%3Cellipse cx='50' cy='50' rx='13' ry='26' fill='none' stroke='%23FAAC6F' stroke-width='6' transform='rotate(-22 50 50)'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@1,700&family=Red+Hat+Display:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       DESIGN TOKENS  (edit brand colors / spacing here)
+       ============================================================ */
+    :root {
+      --vyve-navy-deep:#08132E; --vyve-navy:#17294D; --vyve-white:#FFFFFF;
+      --vyve-cream:#FAF6F2; --vyve-peach:#FAAC6F; --vyve-grey:#BEC3C5;
+      --vyve-orange:#B65100; --vyve-orange-600:#9E551F; --vyve-sand:#ECE3D9;
+      --vyve-slate:#677E82; --vyve-peach-tint:#FFE6C2;
+      --text-on-dark:#FFFFFF; --text-body:#1C2533; --text-heading:#17294D; --text-muted:#677E82;
+      --border-on-dark:rgba(255,255,255,0.22); --border-soft:rgba(28,37,51,0.12);
+      --font-body:"Red Hat Display","Helvetica Neue",Arial,sans-serif;
+      --font-display:"Red Hat Display","Helvetica Neue",Arial,sans-serif;
+      --font-accent:"Cormorant Infant",Georgia,"Times New Roman",serif;
+      --weight-black:900; --tracking-h1:-1.62px; --tracking-h2:-1.32px;
+      --radius-xl:24px; --radius-lg:16px; --radius-chip:11px; --radius-pill:999px; --radius-sm:8px;
+      --shadow-on-dark:0 20px 60px rgba(0,0,0,0.40);
+      --shadow-card:0 12px 32px rgba(28,37,51,0.10);
+      --shadow-sm:0 1px 2px rgba(8,19,46,0.06);
+      --shadow-lg:0 18px 48px rgba(8,19,46,0.12);
+      --blur-overlay:blur(8px);
+      --bg-dark:radial-gradient(120% 90% at 18% 12%, rgba(46,123,175,0.10), transparent 55%), repeating-radial-gradient(circle at 30% 42%, transparent 0 78px, rgba(255,255,255,0.028) 78px 79px, transparent 79px 158px), radial-gradient(140% 120% at 80% 110%, #0c1f3d 0%, #08132E 55%, #041B32 100%);
+      --bg-cream:radial-gradient(90% 70% at 85% -10%, rgba(250,172,111,0.14), transparent 60%), #FAF6F2;
+      --site-width:1120px; --section-x:72px; --section-y:96px; --nav-height:90px;
+      --dur-base:0.4s; --dur-fast:0.2s; --ease-soft:cubic-bezier(0.22,0.61,0.36,1);
+    }
+
+    *, *::before, *::after { box-sizing:border-box; }
+    html, body { margin:0; padding:0; }
+    body { font-family:var(--font-body); background:var(--vyve-navy-deep); background-image:var(--bg-dark); min-height:100vh; color:var(--text-on-dark); }
+    ::selection { background:var(--vyve-peach); color:var(--vyve-navy); }
+
+    /* ---- nav ---- */
+    .nav-link { color:var(--vyve-cream); text-decoration:none; font-size:14px; font-weight:600; transition:color var(--dur-base) ease; }
+    .nav-link:hover { color:var(--vyve-peach); }
+    @media (max-width:560px) { .nav-link { display:none; } }
+
+    /* ---- buttons ---- */
+    .btn { display:inline-flex; align-items:center; justify-content:center; border-radius:var(--radius-pill);
+      font-family:var(--font-body); font-weight:700; letter-spacing:0.2px; text-decoration:none; white-space:nowrap;
+      border:1.5px solid transparent; cursor:pointer;
+      transition:background var(--dur-base) ease, border-color var(--dur-base) ease, transform var(--dur-fast) ease; }
+    .btn-sm { font-size:13px; padding:8px 18px; height:36px; }
+    .btn-md { font-size:15px; padding:11px 24px; height:44px; }
+    .btn-block { width:100%; }
+    .btn-outline-light { background:transparent; color:var(--vyve-white); border-color:var(--border-on-dark); }
+    .btn-outline-light:hover { border-color:rgba(250,172,111,0.6); background:rgba(255,255,255,0.06); }
+    .btn-accent { background:var(--vyve-orange); color:var(--vyve-cream); border-color:var(--vyve-orange); }
+    .btn-accent:hover { background:var(--vyve-orange-600); border-color:var(--vyve-orange-600); }
+    .btn-primary { background:var(--vyve-navy); color:var(--vyve-cream); border-color:var(--vyve-navy); }
+    .btn-primary:hover { background:#0F1E3A; border-color:#0F1E3A; }
+
+    /* ---- hero chips ---- */
+    .chip { display:inline-flex; align-items:center; font-size:13px; font-weight:600; color:var(--vyve-cream);
+      background:rgba(255,255,255,0.06); border:1px solid var(--border-on-dark); border-radius:var(--radius-chip);
+      padding:7px 14px; white-space:nowrap; transition:border-color var(--dur-base) ease, background var(--dur-base) ease; }
+    .chip:hover { border-color:rgba(250,172,111,0.55); background:rgba(255,255,255,0.10); }
+
+    /* ---- hero booking location cards ---- */
+    .loc-card { background:rgba(255,255,255,0.05); border:1px solid var(--border-on-dark); border-radius:var(--radius-lg);
+      padding:20px; transition:border-color var(--dur-base) ease, transform var(--dur-fast) ease; }
+    .loc-card:hover { border-color:rgba(250,172,111,0.55); transform:translateY(-2px); }
+    .virtual-link:hover { background:rgba(255,255,255,0.05); }
+    .contact-link:hover { color:var(--vyve-peach); }
+
+    /* ---- team grid + cards ---- */
+    .vyve-team-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(258px, 1fr)); gap:20px; }
+    .vyve-team-card { display:flex; flex-direction:column; background:var(--vyve-white);
+      border:1px solid var(--border-soft); border-radius:var(--radius-lg); box-shadow:var(--shadow-card); padding:24px 22px 22px;
+      transition:transform var(--dur-base) var(--ease-soft), box-shadow var(--dur-base) var(--ease-soft), border-color var(--dur-base) ease; }
+    .vyve-team-card.is-bookable { cursor:pointer; }
+    .vyve-team-card.is-bookable:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:rgba(182,81,0,0.35); }
+    .vyve-team-card.is-bookable:focus-visible { outline:2px solid var(--vyve-orange); outline-offset:3px; }
+    .vyve-team-card.is-bookable:hover .vyve-mono-ring { transform:rotate(-22deg) scale(1.05); }
+    .mono { position:relative; width:66px; height:66px; flex:0 0 auto; display:grid; place-items:center; border-radius:50%;
+      background:radial-gradient(120% 120% at 30% 25%, var(--vyve-peach-tint), var(--vyve-sand)); }
+    .vyve-mono-ring { position:absolute; inset:0; transition:transform var(--dur-base) var(--ease-soft); transform:rotate(-22deg); }
+    .mono-initials { position:relative; font-family:var(--font-accent); font-style:italic; font-weight:700; font-size:27px; line-height:1; color:var(--vyve-orange); }
+    .office-badge { font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--vyve-slate);
+      border:1px solid var(--border-soft); border-radius:var(--radius-pill); padding:5px 10px; white-space:nowrap; }
+
+    /* ---- offices band grid ---- */
+    .vyve-office-grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    @media (max-width:720px) { .vyve-office-grid { grid-template-columns:1fr; } }
+
+    /* ---- filter chips (book page) ---- */
+    .filter-chip { display:inline-flex; align-items:center; cursor:pointer; font-family:var(--font-body);
+      font-size:13px; font-weight:700; color:var(--text-muted); background:var(--vyve-white);
+      border:1px solid var(--border-soft); border-radius:var(--radius-pill); padding:8px 16px;
+      transition:border-color var(--dur-base) ease, background var(--dur-base) ease, color var(--dur-base) ease; }
+    .filter-chip:hover { border-color:var(--vyve-orange); color:var(--vyve-orange); }
+    .filter-chip.chip-active { border-color:var(--vyve-orange); background:rgba(182,81,0,0.10); color:var(--vyve-orange); }
+
+    /* ---- office-picker modal ---- */
+    .modal-overlay { position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center;
+      padding:20px; background:rgba(8,19,46,0.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    .modal-overlay.open { display:flex; }
+    .modal-card { position:relative; width:100%; max-width:420px; background:var(--vyve-white);
+      border-radius:var(--radius-xl); box-shadow:var(--shadow-lg); padding:32px 30px; animation:vyveReveal .35s var(--ease-soft); }
+    .modal-close { position:absolute; top:12px; right:14px; width:34px; height:34px; border:0; background:transparent;
+      font-size:26px; line-height:1; color:var(--text-muted); cursor:pointer; border-radius:50%; }
+    .modal-close:hover { background:var(--vyve-sand); color:var(--vyve-navy); }
+
+    /* ---- responsive (these elements carry inline styles, so !important is required to override) ---- */
+    @media (max-width:860px) {
+      .vyve-nav { padding-left:20px !important; padding-right:20px !important; }
+      .vyve-hero { grid-template-columns:1fr !important; gap:34px !important; padding:32px 20px 52px !important; }
+      .vyve-hero-h1 { font-size:clamp(34px, 9vw, 46px) !important; }
+      .vyve-section-pad { padding-left:20px !important; padding-right:20px !important; }
+      .vyve-section-y { padding-top:56px !important; padding-bottom:56px !important; }
+    }
+    @media (max-width:520px) {
+      .vyve-book-panel { padding:22px !important; }
+      .vyve-hero-p { font-size:17px !important; }
+    }
+
+    /* ---- motion ---- */
+    @keyframes vyveHeroIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+    .hero-anim { animation:vyveHeroIn 0.9s var(--ease-soft) 0.1s backwards; }
+    @keyframes vyveReveal { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:none; } }
+    .reveal.is-visible { animation:vyveReveal 0.7s var(--ease-soft) backwards; }
+    @media (prefers-reduced-motion:reduce) { .hero-anim, .reveal.is-visible, .modal-card { animation:none; } }
+  </style>
+</head>
+<body>
+  <header class="vyve-nav" style="position:sticky; top:0; z-index:50; height:var(--nav-height); display:flex; align-items:center; justify-content:space-between; padding:0 var(--section-x); background:rgba(8,19,46,0.55); backdrop-filter:var(--blur-overlay); -webkit-backdrop-filter:var(--blur-overlay); border-bottom:1px solid var(--border-on-dark);">
+    <a href="index.html" style="display:flex; align-items:center;">
+      <img src="assets/vyve-logo.svg" alt="Vyve Psychotherapy" style="height:56px; width:auto; display:block;">
+    </a>
+    <nav style="display:flex; align-items:center; gap:24px;">
+      <a href="index.html#team" class="nav-link">Our team</a>
+      <a href="index.html#offices" class="nav-link">Offices</a>
+      <a href="book.html" class="btn btn-sm btn-outline-light">Book appointment</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section style="position:relative; overflow:hidden; background-color:var(--vyve-navy-deep); background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.42%22/%3E%3C/svg%3E'), radial-gradient(120% 92% at 13% -8%, rgba(46,123,175,0.22), transparent 52%), radial-gradient(72% 80% at 97% -2%, rgba(182,81,0,0.12), transparent 60%), radial-gradient(150% 135% at 82% 118%, #0d2143 0%, #0a1733 48%, #06112a 100%); background-repeat:repeat, no-repeat, no-repeat, no-repeat; background-size:150px 150px, auto, auto, auto; background-blend-mode:overlay, normal, normal, normal;">
+    <svg viewBox="0 0 900 900" preserveAspectRatio="xMaxYMin slice" aria-hidden="true" style="position:absolute; top:-260px; right:-200px; width:900px; height:900px; pointer-events:none; opacity:0.55;">
+      <g fill="none" stroke="rgba(250,172,111,0.16)">
+        <circle cx="450" cy="450" r="120" stroke-width="1.5"></circle>
+        <circle cx="450" cy="450" r="190" stroke-width="1.5"></circle>
+        <circle cx="450" cy="450" r="262" stroke-width="1.25" stroke="rgba(255,255,255,0.10)"></circle>
+        <circle cx="450" cy="450" r="338" stroke-width="1.25" stroke="rgba(255,255,255,0.08)"></circle>
+        <circle cx="450" cy="450" r="418" stroke-width="1" stroke="rgba(255,255,255,0.06)"></circle>
+      </g>
+    </svg>
+    <div class="vyve-hero" style="max-width:var(--site-width); margin:0 auto; width:100%; padding:64px var(--section-x) 88px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center;">
+
+      <div>
+        <h1 class="vyve-hero-h1 hero-anim" style="margin:0; font-family:var(--font-display); font-weight:var(--weight-black); color:var(--text-on-dark); font-size:clamp(40px, 5.2vw, 60px); line-height:0.98; letter-spacing:var(--tracking-h1); text-wrap:balance;">
+          We don't believe in therapy <span style="font-family:var(--font-accent); font-style:italic; font-weight:700; font-size:1.32em; line-height:0.8; color:var(--vyve-peach); padding:0 0.04em;">forever</span>.
+        </h1>
+        <p class="vyve-hero-p hero-anim" style="color:var(--vyve-cream); font-size:19px; line-height:1.6; font-weight:500; max-width:460px; margin:24px 0 0;">
+          Real, licensed therapists and measurable progress.</p>
+        <div class="hero-anim" style="margin:32px 0 0;">
+          <div style="display:flex; flex-wrap:wrap; gap:9px; max-width:520px;">
+            <span class="chip">Person-centered</span>
+            <span class="chip">ACT</span>
+            <span class="chip">Solution-focused</span>
+            <span class="chip">EMDR</span>
+            <span class="chip">Somatic</span>
+            <span class="chip">IFS</span>
+            <span class="chip">CBT</span>
+            <span class="chip">Massage Therapy</span>
+            <span class="chip">Individual counselling</span>
+            <span class="chip">Couples counselling</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="book" class="vyve-book-panel hero-anim" style="background:rgba(255,255,255,0.06); backdrop-filter:var(--blur-overlay); -webkit-backdrop-filter:var(--blur-overlay); border:1px solid var(--border-on-dark); border-radius:var(--radius-xl); padding:30px; box-shadow:var(--shadow-on-dark);">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
+          <h2 style="margin:0; font-family:var(--font-display); font-weight:var(--weight-black); color:var(--vyve-white); font-size:24px; letter-spacing:-0.4px;">Book your session</h2>
+          <span style="font-size:13px; font-weight:700; color:var(--vyve-peach); text-transform:uppercase; letter-spacing:1.4px; white-space:nowrap;">2 offices</span>
+        </div>
+        <p style="margin:8px 0 22px; font-size:14.5px; line-height:1.5; color:var(--vyve-grey);">Choose the office closest to you. New patients welcome.</p>
+
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div class="loc-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <span style="font-family:var(--font-display); font-weight:var(--weight-black); color:var(--vyve-white); font-size:19px; letter-spacing:-0.3px;">Moncton</span>
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:var(--vyve-peach); border:1px solid var(--border-on-dark); border-radius:var(--radius-pill); padding:4px 11px; white-space:nowrap;">In person</span>
+            </div>
+            <div style="margin:10px 0 0; font-size:14px; line-height:1.5; color:var(--vyve-grey);">187 Botsford St, Moncton, NB E1C 4X4</div>
+            <a href="tel:+15065248119" style="display:inline-block; margin:6px 0 16px; font-size:14px; font-weight:700; color:var(--vyve-peach); text-decoration:none;">506-524-8119</a>
+            <a href="https://clearviewpsychotherapy.janeapp.com/locations/vyve-psychotherapy-on-botsford-moncton-location/book" target="_blank" rel="noopener" class="btn btn-md btn-accent btn-block">Book in Moncton</a>
+          </div>
+          <div class="loc-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <span style="font-family:var(--font-display); font-weight:var(--weight-black); color:var(--vyve-white); font-size:19px; letter-spacing:-0.3px;">Richibucto</span>
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:var(--vyve-peach); border:1px solid var(--border-on-dark); border-radius:var(--radius-pill); padding:4px 11px; white-space:nowrap;">In person</span>
+            </div>
+            <div style="margin:10px 0 0; font-size:14px; line-height:1.5; color:var(--vyve-grey);">2-9333 Rue Main, Richibucto, NB E4W 4B6</div>
+            <a href="tel:+15065233359" style="display:inline-block; margin:6px 0 16px; font-size:14px; font-weight:700; color:var(--vyve-peach); text-decoration:none;">506-523-3359</a>
+            <a href="https://clearviewpsychotherapy.janeapp.com/locations/vyve-psychotherapy-in-richibucto/book" target="_blank" rel="noopener" class="btn btn-md btn-accent btn-block">Book in Richibucto</a>
+          </div>
+        </div>
+
+        <a href="book.html" class="virtual-link" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin:16px 0 0; padding:14px 18px; border-radius:var(--radius-lg); background:transparent; border:1px dashed var(--border-on-dark); text-decoration:none; transition:background var(--dur-base) ease;">
+          <span style="font-size:14px; font-weight:600; color:var(--vyve-cream);">Rather choose a specific therapist? Browse the full team.</span>
+          <span style="color:var(--vyve-peach); font-weight:800; font-size:16px;">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEAM DIRECTORY ===== -->
+  <section id="team" style="background:var(--vyve-cream); background-image:var(--bg-cream); color:var(--text-body);">
+    <div class="vyve-section-pad vyve-section-y" style="max-width:var(--site-width); margin:0 auto; padding:var(--section-y) var(--section-x);">
+
+      <div class="reveal" style="display:flex; align-items:flex-end; justify-content:space-between; gap:28px; flex-wrap:wrap; margin:0 0 44px;">
+        <div style="max-width:620px;">
+          <span style="display:inline-block; text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:800; color:var(--vyve-orange);">Our team · Notre équipe</span>
+          <h2 style="margin:16px 0 0; font-family:var(--font-display); font-weight:var(--weight-black); color:var(--text-heading); font-size:clamp(30px, 4vw, 44px); line-height:0.98; letter-spacing:var(--tracking-h2); text-wrap:balance;">
+            Find the therapist that's <span style="font-family:var(--font-accent); font-style:italic; font-weight:700; font-size:1.32em; line-height:0.8; color:var(--vyve-orange); padding:0 0.04em;">right</span> for you.
+          </h2>
+          <p style="margin:18px 0 0; font-size:17px; line-height:1.6; color:var(--text-muted); max-width:560px;">
+            A full team of licensed counselling therapists, social workers and psychologists across our two New Brunswick offices. Tap any therapist to see their live availability and book through Jane.
+          </p>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; padding:12px 18px; border:1px solid var(--border-soft); border-radius:var(--radius-pill); background:var(--vyve-white); box-shadow:var(--shadow-sm);">
+          <span style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:26px; color:var(--vyve-orange); letter-spacing:-0.5px;">16</span>
+          <span style="font-size:13.5px; font-weight:600; line-height:1.25; color:var(--text-muted);">therapists<br>ready to help</span>
+        </div>
+      </div>
+
+      <div class="vyve-team-grid">
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton,richibucto" data-book data-jid="30" data-name="Petra Cross" role="button" tabindex="0" aria-label="Book with Petra Cross">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">PC</span>
+            </div>
+            <span class="office-badge">Both offices</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Petra Cross</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Canadian Certified Counsellor</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="richibucto" data-book data-jid="9" data-name="Carolina Mancipe" role="button" tabindex="0" aria-label="Book with Carolina Mancipe">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">CM</span>
+            </div>
+            <span class="office-badge">Richibucto</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Carolina Mancipe</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Licensed Counselling Therapist</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton,richibucto" data-book data-jid="16" data-name="Tyler Curry" role="button" tabindex="0" aria-label="Book with Tyler Curry">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">TC</span>
+            </div>
+            <span class="office-badge">Both offices</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Tyler Curry</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Counselling Therapist — Candidate</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal" data-card data-offices="moncton,richibucto">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">LJ</span>
+            </div>
+            <span class="office-badge">Both offices</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Lisa Johnson Thebeau</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Licensed Counselling Therapist</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person</span>
+            <span style="font-size:11.5px; font-weight:700; color:var(--text-muted);">Not accepting new clients</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton,richibucto" data-book data-jid="34" data-name="Arianna Gaudreault" role="button" tabindex="0" aria-label="Book with Arianna Gaudreault">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">AG</span>
+            </div>
+            <span class="office-badge">Both offices</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Arianna Gaudreault</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Counselling Therapist — Candidate</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton,richibucto" data-book data-jid="22" data-name="Charlene Savoie" role="button" tabindex="0" aria-label="Book with Charlene Savoie">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">CS</span>
+            </div>
+            <span class="office-badge">Both offices</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Charlene Savoie</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Trauma-Informed Naturotherapist</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton" data-book data-jid="10" data-name="Laura MacIsaac" role="button" tabindex="0" aria-label="Book with Laura MacIsaac">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">LM</span>
+            </div>
+            <span class="office-badge">Moncton</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Laura MacIsaac</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Counselling Therapist</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton" data-book data-jid="37" data-name="Stephanie Scripture" role="button" tabindex="0" aria-label="Book with Stephanie Scripture">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">SS</span>
+            </div>
+            <span class="office-badge">Moncton</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Stephanie Scripture</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Registered Social Worker</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton" data-book data-jid="21" data-name="Stephanie Perry" role="button" tabindex="0" aria-label="Book with Stephanie Perry">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">SP</span>
+            </div>
+            <span class="office-badge">Moncton</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Stephanie Perry</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Counselling Therapist — Candidate</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton" data-book data-jid="13" data-name="Terrell Sine" role="button" tabindex="0" aria-label="Book with Terrell Sine">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">TS</span>
+            </div>
+            <span class="office-badge">Moncton</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Terrell Sine</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Counselling Therapist — Candidate</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton" data-book data-jid="29" data-name="Mekayla Leger" role="button" tabindex="0" aria-label="Book with Mekayla Leger">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">ML</span>
+            </div>
+            <span class="office-badge">Moncton</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Mekayla Leger</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Registered Social Worker</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton" data-book data-jid="23" data-name="Joanne Gobeil" role="button" tabindex="0" aria-label="Book with Joanne Gobeil">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">JG</span>
+            </div>
+            <span class="office-badge">Moncton</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Joanne Gobeil</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Psychologist</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="richibucto" data-book data-jid="11" data-name="Chelsea Steeves-Babineau" role="button" tabindex="0" aria-label="Book with Chelsea Steeves-Babineau">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">CB</span>
+            </div>
+            <span class="office-badge">Richibucto</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Chelsea Steeves-Babineau</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Licensed Counselling Therapist</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person · Virtual</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="richibucto" data-book data-jid="35" data-name="Julia Urbshot" role="button" tabindex="0" aria-label="Book with Julia Urbshot">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">JU</span>
+            </div>
+            <span class="office-badge">Richibucto</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Julia Urbshot</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Counselling Therapist</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="moncton,richibucto" data-book data-jid="36" data-name="Janna Vassil" role="button" tabindex="0" aria-label="Book with Janna Vassil">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">JV</span>
+            </div>
+            <span class="office-badge">Both offices</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Janna Vassil</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Counsellor</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+        <article class="vyve-team-card reveal is-bookable" data-card data-offices="richibucto" data-book data-jid="4" data-name="Janine Daigle" role="button" tabindex="0" aria-label="Book with Janine Daigle">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div class="mono">
+              <svg class="vyve-mono-ring" viewBox="0 0 66 66" width="66" height="66" aria-hidden="true">
+                <circle cx="33" cy="33" r="27" fill="none" stroke="rgba(182,81,0,0.30)" stroke-width="2"></circle>
+                <ellipse cx="33" cy="33" rx="13" ry="27" fill="none" stroke="rgba(182,81,0,0.45)" stroke-width="2"></ellipse>
+              </svg>
+              <span class="mono-initials">JD</span>
+            </div>
+            <span class="office-badge">Richibucto</span>
+          </div>
+          <div style="margin:18px 0 0;">
+            <div style="font-family:var(--font-display); font-weight:var(--weight-black); font-size:20px; letter-spacing:-0.4px; color:var(--vyve-navy); line-height:1.1;">Janine Daigle</div>
+            <div style="margin:5px 0 0; font-size:13.5px; font-weight:600; line-height:1.4; color:var(--vyve-orange-600);">Counsellor</div>
+          </div>
+          <div style="margin:16px 0 0; padding:14px 0 0; border-top:1px solid var(--border-soft); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <span style="font-size:12.5px; font-weight:600; color:var(--text-muted);">In person</span>
+            <span style="font-size:13px; font-weight:800; color:var(--vyve-orange);">Book →</span>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== OFFICES BAND ===== -->
+  <section id="offices" style="background:var(--vyve-sand); color:var(--text-body);">
+    <div class="vyve-section-pad" style="max-width:var(--site-width); margin:0 auto; padding:64px var(--section-x);">
+      <div class="reveal" style="margin:0 0 26px;">
+        <h3 style="margin:0; font-family:var(--font-display); font-weight:var(--weight-black); color:var(--text-heading); font-size:clamp(24px, 3vw, 32px); letter-spacing:-0.6px;">
+          Two offices, both <span style="font-family:var(--font-accent); font-style:italic; font-weight:700; font-size:1.3em; color:var(--vyve-orange);">close</span> to home.</h3>
+      </div>
+      <div class="vyve-office-grid reveal">
+          <div style="background:var(--vyve-white); border:1px solid var(--border-soft); border-radius:var(--radius-lg); box-shadow:var(--shadow-card); padding:28px 28px 26px; display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <h4 style="margin:0; font-family:var(--font-display); font-weight:var(--weight-black); color:var(--text-heading); font-size:26px; letter-spacing:-0.5px;">Moncton</h4>
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:var(--vyve-orange); border:1px solid var(--vyve-orange); border-radius:var(--radius-pill); padding:4px 11px; white-space:nowrap;">In-person office</span>
+            </div>
+            <div style="margin:12px 0 0; font-size:15px; line-height:1.5; color:var(--text-muted);">187 Botsford St, Moncton, NB E1C 4X4</div>
+            <a href="tel:+15065248119" style="display:inline-block; margin:6px 0 22px; font-size:15px; font-weight:700; color:var(--vyve-orange); text-decoration:none;">506-524-8119</a>
+            <div style="margin-top:auto;">
+              <a href="https://clearviewpsychotherapy.janeapp.com/locations/vyve-psychotherapy-on-botsford-moncton-location/book" target="_blank" rel="noopener" class="btn btn-md btn-primary">Book in Moncton</a>
+            </div>
+          </div>
+          <div style="background:var(--vyve-white); border:1px solid var(--border-soft); border-radius:var(--radius-lg); box-shadow:var(--shadow-card); padding:28px 28px 26px; display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <h4 style="margin:0; font-family:var(--font-display); font-weight:var(--weight-black); color:var(--text-heading); font-size:26px; letter-spacing:-0.5px;">Richibucto</h4>
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:var(--vyve-orange); border:1px solid var(--vyve-orange); border-radius:var(--radius-pill); padding:4px 11px; white-space:nowrap;">In-person office</span>
+            </div>
+            <div style="margin:12px 0 0; font-size:15px; line-height:1.5; color:var(--text-muted);">2-9333 Rue Main, Richibucto, NB E4W 4B6</div>
+            <a href="tel:+15065233359" style="display:inline-block; margin:6px 0 22px; font-size:15px; font-weight:700; color:var(--vyve-orange); text-decoration:none;">506-523-3359</a>
+            <div style="margin-top:auto;">
+              <a href="https://clearviewpsychotherapy.janeapp.com/locations/vyve-psychotherapy-in-richibucto/book" target="_blank" rel="noopener" class="btn btn-md btn-primary">Book in Richibucto</a>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--vyve-navy-deep); background-image:var(--bg-dark); border-top:1px solid var(--border-on-dark);">
+    <div class="vyve-section-pad reveal" style="max-width:var(--site-width); margin:0 auto; padding:26px var(--section-x); display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <span style="font-family:var(--font-display); font-weight:var(--weight-black); color:var(--vyve-white); font-size:18px; letter-spacing:-0.3px;">Whatever you're facing, we're here to <span style="font-family:var(--font-accent); font-style:italic; font-weight:700; font-size:1.3em; color:var(--vyve-peach);">help</span>.</span>
+      <div style="display:flex; align-items:center; gap:28px; flex-wrap:wrap;">
+          <a href="tel:+15065248119" class="contact-link" style="display:inline-flex; align-items:center; gap:9px; font-size:14px; font-weight:600; color:var(--vyve-grey); text-decoration:none;"><span style="font-weight:800; color:var(--vyve-cream);">Moncton</span> 506-524-8119</a>
+          <a href="tel:+15065233359" class="contact-link" style="display:inline-flex; align-items:center; gap:9px; font-size:14px; font-weight:600; color:var(--vyve-grey); text-decoration:none;"><span style="font-weight:800; color:var(--vyve-cream);">Richibucto</span> 506-523-3359</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- office-picker modal (dual-office therapists) -->
+  <div id="office-modal" class="modal-overlay" data-modal>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="office-modal-title">
+      <button class="modal-close" type="button" aria-label="Close" data-modal-close>&times;</button>
+      <div style="text-transform:uppercase; letter-spacing:1.6px; font-size:11px; font-weight:800; color:var(--vyve-orange);">Choose an office</div>
+      <h3 id="office-modal-title" style="margin:8px 0 6px; font-family:var(--font-display); font-weight:var(--weight-black); color:var(--vyve-navy); font-size:24px; letter-spacing:-0.4px;">Book with <span data-modal-name></span></h3>
+      <p style="margin:0 0 20px; font-size:14.5px; line-height:1.5; color:var(--text-muted);">This therapist sees clients at both offices. Pick the one closest to you &mdash; you'll go straight to their live calendar.</p>
+      <div data-modal-buttons style="display:flex; flex-direction:column; gap:12px;"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var SLUGS = { moncton: "vyve-psychotherapy-on-botsford-moncton-location", richibucto: "vyve-psychotherapy-in-richibucto" };
+      var LABEL = { moncton: "Moncton", richibucto: "Richibucto" };
+      function janeUrl(office, jid) {
+        return "https://clearviewpsychotherapy.janeapp.com/locations/" + SLUGS[office] + "/book#/staff_member/" + jid;
+      }
+      var modal = document.getElementById("office-modal");
+      function openModal(name, jid, offices) {
+        modal.querySelector("[data-modal-name]").textContent = name;
+        var wrap = modal.querySelector("[data-modal-buttons]");
+        wrap.innerHTML = "";
+        offices.forEach(function (o) {
+          var a = document.createElement("a");
+          a.href = janeUrl(o, jid);
+          a.target = "_blank"; a.rel = "noopener";
+          a.className = "btn btn-md btn-accent btn-block";
+          a.textContent = "Book in " + LABEL[o];
+          a.addEventListener("click", closeModal);
+          wrap.appendChild(a);
+        });
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeModal() { modal.classList.remove("open"); document.body.style.overflow = ""; }
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal || e.target.hasAttribute("data-modal-close")) closeModal();
+      });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
+
+      function book(el) {
+        var jid = el.getAttribute("data-jid");
+        var name = el.getAttribute("data-name");
+        var offices = el.getAttribute("data-offices").split(",");
+        if (offices.length === 1) { window.open(janeUrl(offices[0], jid), "_blank", "noopener"); }
+        else { openModal(name, jid, offices); }
+      }
+      document.querySelectorAll("[data-book]").forEach(function (el) {
+        el.addEventListener("click", function () { book(el); });
+        el.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); book(el); }
+        });
+      });
+
+      // therapist filter (book page only)
+      var chips = document.querySelectorAll("[data-filter]");
+      if (chips.length) {
+        chips.forEach(function (b) {
+          b.addEventListener("click", function () {
+            var f = b.getAttribute("data-filter");
+            chips.forEach(function (x) { x.classList.toggle("chip-active", x === b); });
+            document.querySelectorAll("[data-card]").forEach(function (c) {
+              var show = (f === "all") || c.getAttribute("data-offices").split(",").indexOf(f) > -1;
+              c.style.display = show ? "" : "none";
+            });
+          });
+        });
+      }
+    })();
+  </script>
+
+  <script>
+    (function () {
+      function reveal() {
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        document.querySelectorAll(".reveal:not(.is-visible)").forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.top < vh * 0.9 && r.bottom > 0) el.classList.add("is-visible");
+        });
+      }
+      reveal();
+      window.addEventListener("scroll", reveal, { passive: true });
+      window.addEventListener("resize", reveal);
+      setTimeout(reveal, 150);
+      setTimeout(reveal, 600);
+    })();
+  </script>
+</body>
+</html>
