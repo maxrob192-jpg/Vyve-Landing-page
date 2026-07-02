@@ -11,6 +11,11 @@ by staff_member id. Dual-office therapists get an office-picker modal. Jane
 remains the single source of truth and tracks every booking.
 """
 
+# Live subdomains (GitHub Pages custom domains; DNS CNAMEs live in Wix)
+LANDING_URL = "https://landing.vyvepsychotherapy.ca"
+BOOK_URL = "https://book.vyvepsychotherapy.ca"
+BOOK_REPO_DIR = "../vyve-book"  # second repo: serves the booking hub as its index.html
+
 JANE_BASE = "https://clearviewpsychotherapy.janeapp.com/locations"
 LOC_SLUG = {
     "moncton": "vyve-psychotherapy-on-botsford-moncton-location",
@@ -306,15 +311,24 @@ def head(title, desc):
 </head>'''
 
 
-def nav(prefix=""):
+def nav(page):
+    """page: 'landing' or 'book'. Each page lives on its own subdomain, so
+    cross-page links are absolute; same-page links stay relative anchors."""
+    if page == "landing":
+        logo_href, team_href, offices_href, book_href = "/", "#team", "#offices", BOOK_URL
+    else:  # book page (its own repo/subdomain)
+        logo_href = LANDING_URL
+        team_href = LANDING_URL + "/#team"
+        offices_href = LANDING_URL + "/#offices"
+        book_href = "/"
     return f'''  <header class="vyve-nav" style="position:sticky; top:0; z-index:50; height:var(--nav-height); display:flex; align-items:center; justify-content:space-between; padding:0 var(--section-x); background:rgba(8,19,46,0.55); backdrop-filter:var(--blur-overlay); -webkit-backdrop-filter:var(--blur-overlay); border-bottom:1px solid var(--border-on-dark);">
-    <a href="index.html" style="display:flex; align-items:center;">
+    <a href="{logo_href}" style="display:flex; align-items:center;">
       <img src="assets/vyve-logo.svg" alt="Vyve Psychotherapy" style="height:56px; width:auto; display:block;">
     </a>
     <nav style="display:flex; align-items:center; gap:24px;">
-      <a href="{prefix}index.html#team" class="nav-link">Our team</a>
-      <a href="{prefix}index.html#offices" class="nav-link">Offices</a>
-      <a href="book.html" class="btn btn-sm btn-outline-light">Book appointment</a>
+      <a href="{team_href}" class="nav-link">Our team</a>
+      <a href="{offices_href}" class="nav-link">Offices</a>
+      <a href="{book_href}" class="btn btn-sm btn-outline-light">Book appointment</a>
     </nav>
   </header>'''
 
@@ -445,7 +459,7 @@ index_html = f'''<!DOCTYPE html>
 <html lang="en">
 {head("Vyve Psychotherapy — Therapy that doesn't last forever", "Vyve Psychotherapy — real, licensed therapists and measurable progress. In-person and virtual counselling at our Moncton and Richibucto, NB offices.")}
 <body>
-{nav("")}
+{nav("landing")}
 
   <!-- ===== HERO ===== -->
   <section style="position:relative; overflow:hidden; {HERO_BG}">
@@ -476,7 +490,7 @@ index_html = f'''<!DOCTYPE html>
 {hero_loc_html()}
         </div>
 
-        <a href="book.html" class="virtual-link" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin:16px 0 0; padding:14px 18px; border-radius:var(--radius-lg); background:transparent; border:1px dashed var(--border-on-dark); text-decoration:none; transition:background var(--dur-base) ease;">
+        <a href="{BOOK_URL}" class="virtual-link" style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin:16px 0 0; padding:14px 18px; border-radius:var(--radius-lg); background:transparent; border:1px dashed var(--border-on-dark); text-decoration:none; transition:background var(--dur-base) ease;">
           <span style="font-size:14px; font-weight:600; color:var(--vyve-cream);">Rather choose a specific therapist? Browse the full team.</span>
           <span style="color:var(--vyve-peach); font-weight:800; font-size:16px;">→</span>
         </a>
@@ -540,7 +554,7 @@ book_html = f'''<!DOCTYPE html>
 <html lang="en">
 {head("Book an appointment — Vyve Psychotherapy", "Book your appointment with Vyve Psychotherapy. Choose a therapist or office in Moncton or Richibucto, NB and book instantly through Jane.")}
 <body>
-{nav("")}
+{nav("book")}
 
   <!-- ===== BOOK HERO ===== -->
   <section style="position:relative; overflow:hidden; {HERO_BG}">
@@ -598,9 +612,26 @@ book_html = f'''<!DOCTYPE html>
 '''
 
 
-with open("index.html", "w", encoding="utf-8") as f:
+import os, shutil
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+BOOK_DIR = os.path.normpath(os.path.join(HERE, BOOK_REPO_DIR))
+
+# landing repo (this one) -> landing.vyvepsychotherapy.ca
+with open(os.path.join(HERE, "index.html"), "w", encoding="utf-8") as f:
     f.write(index_html)
-with open("book.html", "w", encoding="utf-8") as f:
+with open(os.path.join(HERE, "CNAME"), "w", encoding="utf-8") as f:
+    f.write("landing.vyvepsychotherapy.ca\n")
+open(os.path.join(HERE, ".nojekyll"), "w").close()
+
+# book repo -> book.vyvepsychotherapy.ca (booking hub served as index.html)
+os.makedirs(os.path.join(BOOK_DIR, "assets"), exist_ok=True)
+with open(os.path.join(BOOK_DIR, "index.html"), "w", encoding="utf-8") as f:
     f.write(book_html)
-print("wrote index.html", len(index_html), "bytes")
-print("wrote book.html", len(book_html), "bytes")
+shutil.copy2(os.path.join(HERE, "assets", "vyve-logo.svg"), os.path.join(BOOK_DIR, "assets", "vyve-logo.svg"))
+with open(os.path.join(BOOK_DIR, "CNAME"), "w", encoding="utf-8") as f:
+    f.write("book.vyvepsychotherapy.ca\n")
+open(os.path.join(BOOK_DIR, ".nojekyll"), "w").close()
+
+print("wrote", os.path.join(HERE, "index.html"), len(index_html), "bytes  -> landing.vyvepsychotherapy.ca")
+print("wrote", os.path.join(BOOK_DIR, "index.html"), len(book_html), "bytes  -> book.vyvepsychotherapy.ca")
