@@ -297,6 +297,26 @@ FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox
            "%3Cellipse cx='50' cy='50' rx='13' ry='26' fill='none' stroke='%23FAAC6F' stroke-width='6' transform='rotate(-22 50 50)'/%3E%3C/svg%3E")
 
 
+# Meta (Facebook) Pixel — Vyve Psychotherapy ad account dataset "vyvepsychotherapy.ca"
+META_PIXEL_ID = "1741746813684532"
+META_PIXEL = f'''  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {{if(f.fbq)return;n=f.fbq=function(){{n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)}};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '{META_PIXEL_ID}');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id={META_PIXEL_ID}&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->'''
+
+
 def head(title, desc):
     return f'''<head>
   <meta charset="utf-8">
@@ -304,6 +324,7 @@ def head(title, desc):
   <meta name="description" content="{desc}">
   <title>{title}</title>
   <link rel="icon" type="image/svg+xml" href="{FAVICON}">
+{META_PIXEL}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@1,700&family=Red+Hat+Display:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -389,7 +410,7 @@ MODAL_AND_JS = '''  <!-- office-picker modal (dual-office therapists) -->
         var jid = el.getAttribute("data-jid");
         var name = el.getAttribute("data-name");
         var offices = el.getAttribute("data-offices").split(",");
-        if (offices.length === 1) { window.open(janeUrl(offices[0], jid), "_blank", "noopener"); }
+        if (offices.length === 1) { fireSchedule(name); window.open(janeUrl(offices[0], jid), "_blank", "noopener"); }
         else { openModal(name, jid, offices); }
       }
       document.querySelectorAll("[data-book]").forEach(function (el) {
@@ -397,6 +418,17 @@ MODAL_AND_JS = '''  <!-- office-picker modal (dual-office therapists) -->
         el.addEventListener("keydown", function (e) {
           if (e.key === "Enter" || e.key === " ") { e.preventDefault(); book(el); }
         });
+      });
+
+      // Meta Pixel: any click through to Jane counts as a "Schedule" conversion.
+      // Covers office/band buttons and modal buttons (anchors); single-office
+      // therapist cards fire from book() above since they open via window.open.
+      function fireSchedule(name) {
+        if (window.fbq) fbq("track", "Schedule", { content_name: name || "Booking", content_category: "appointment_booking" });
+      }
+      document.addEventListener("click", function (e) {
+        var a = e.target.closest && e.target.closest('a[href*="janeapp.com"]');
+        if (a) fireSchedule((a.textContent || "").trim());
       });
 
       // therapist filter (book page only)
