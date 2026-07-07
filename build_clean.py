@@ -393,6 +393,7 @@ MODAL_AND_JS = '''  <!-- office-picker modal (dual-office therapists) -->
           a.href = janeUrl(o, jid);
           a.target = "_blank"; a.rel = "noopener";
           a.className = "btn btn-md btn-accent btn-block";
+          a.setAttribute("data-therapist", name);
           a.textContent = "Book in " + LABEL[o];
           a.addEventListener("click", closeModal);
           wrap.appendChild(a);
@@ -410,7 +411,7 @@ MODAL_AND_JS = '''  <!-- office-picker modal (dual-office therapists) -->
         var jid = el.getAttribute("data-jid");
         var name = el.getAttribute("data-name");
         var offices = el.getAttribute("data-offices").split(",");
-        if (offices.length === 1) { fireSchedule(name); window.open(janeUrl(offices[0], jid), "_blank", "noopener"); }
+        if (offices.length === 1) { fireSchedule(name, "therapist_card", offices[0]); window.open(janeUrl(offices[0], jid), "_blank", "noopener"); }
         else { openModal(name, jid, offices); }
       }
       document.querySelectorAll("[data-book]").forEach(function (el) {
@@ -420,15 +421,35 @@ MODAL_AND_JS = '''  <!-- office-picker modal (dual-office therapists) -->
         });
       });
 
-      // Meta Pixel: any click through to Jane counts as a "Schedule" conversion.
-      // Covers office/band buttons and modal buttons (anchors); single-office
-      // therapist cards fire from book() above since they open via window.open.
-      function fireSchedule(name) {
-        if (window.fbq) fbq("track", "Schedule", { content_name: name || "Booking", content_category: "appointment_booking" });
+      // ---- Meta Pixel click tracking ----------------------------------
+      // Schedule       -> any click through to Jane (office buttons, therapist
+      //                   cards, office-picker modal). The conversion event.
+      // Contact        -> any phone-number (tel:) tap.
+      // ClickToBookPage-> internal nav from landing to the book page (funnel).
+      // Every event carries page + content_name (+ category/office) so each
+      // button is identifiable in Events Manager breakdowns.
+      var PAGE = location.hostname.indexOf("book.") === 0 ? "book" : "landing";
+      function fireSchedule(name, category, office) {
+        if (!window.fbq) return;
+        var p = { content_name: name || "Booking", content_category: category || "appointment_booking", page: PAGE };
+        if (office) p.office = office;
+        fbq("track", "Schedule", p);
       }
       document.addEventListener("click", function (e) {
-        var a = e.target.closest && e.target.closest('a[href*="janeapp.com"]');
-        if (a) fireSchedule((a.textContent || "").trim());
+        var a = e.target.closest && e.target.closest("a");
+        if (!a || !window.fbq) return;
+        var href = a.getAttribute("href") || "";
+        var label = (a.textContent || "").trim().replace(/\\s+/g, " ");
+        if (href.indexOf("janeapp.com") > -1) {
+          var inModal = !!(a.closest && a.closest("#office-modal"));
+          var therapist = a.getAttribute("data-therapist");
+          fireSchedule(therapist || label, inModal ? "office_modal" : "office_button",
+                       label.indexOf("Moncton") > -1 ? "moncton" : (label.indexOf("Richibucto") > -1 ? "richibucto" : undefined));
+        } else if (href.indexOf("tel:") === 0) {
+          fbq("track", "Contact", { content_name: label, method: "phone", page: PAGE });
+        } else if (href.indexOf("book.vyvepsychotherapy.ca") > -1) {
+          fbq("trackCustom", "ClickToBookPage", { content_name: label, page: PAGE });
+        }
       });
 
       // therapist filter (book page only)
